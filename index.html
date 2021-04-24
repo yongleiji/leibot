@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +9,63 @@
         * {
             box-sizing: border-box;
         }
+
+        body {
+            margin: 0;
+            /* background: url("bg.jpg"); */
+        }
+
+        .main {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main>* {
+            width: 25rem;
+            max-width: 100%;
+        }
+
         .dialogue {
-            margin: 0 auto;
-            width: 25em;
-            height: 90vh;
+            flex-grow: 1;
             overflow-y: auto;
         }
-        .control {
-            margin: 0 auto;
-            width: 25em;
+
+        h1 {
+            margin: 0;
+            padding: 0 1em;
+            background-color: #80808075;
         }
+
+        .beta {
+            vertical-align: sub;
+            font-size: 50%;
+        }
+
+        .control {
+            font-size: 1.2em;
+        }
+
+        input {
+            width: 80%;
+            height: 2em;
+        }
+
+        button {
+            width: 20%;
+            height: 2em;
+            cursor: pointer;
+            background-color: #6495ed;
+            border: none;
+        }
+
         .message {
             display: flex;
             align-items: center;
             padding: .5em 0;
         }
+
         .message p {
             margin: 0 5%;
             padding: .3em 1em;
@@ -32,50 +75,70 @@
             overflow-wrap: break-word;
             white-space: pre-wrap;
         }
+
         .message img {
             border-radius: 100%;
             width: 15%;
         }
+
         .right {
             flex-direction: row-reverse;
         }
+
         .right p {
             background-color: cornflowerblue;
         }
+
         .yonglei::first-line {
             font-weight: bold;
             font-size: larger;
         }
+
+        footer {
+            height: .5em;
+            background-color: #80808075;
+        }
+
         .s {
             display: none;
         }
     </style>
 </head>
+
 <body>
-    <div class="dialogue">
-        <h1>雷bot 测试版</h1>
-        <p>雷bot是基于雷氏创新科学理论研发的智能对话机器人，你可以与它探讨科学、人生等问题。</p>
-        <h2>使用说明</h2>
-        <ul>
-            <li>输入任意问题，雷bot会为你解答。</li>
-            <li>输入<strong>“咏雷”</strong>，欣赏雷氏文学名篇。</li>
-            <li>更多功能敬请期待后续更新……</li>
-        </ul>
-        <h2>关于</h2>
-            <p>雷bot的语料来自百度<a href="https://tieba.baidu.com/f?kw=%E9%9B%B7%E6%B0%8F%E5%8A%9B%E5%AD%A6&ie=utf-8" target="_blank" rel="noopener noreferrer">雷氏力学吧</a>，仅供娱乐，程序生成的对话内容不代表雷绍武老师及开发者的态度。《咏雷》作品的版权归其作者所有。</p>
+    <div class="main">
+        <header>
+            <h1>雷bot<span class="beta">测试版</span></h1>
+        </header>
+        <div class="dialogue">
+            <p>雷bot是基于雷氏创新科学理论研发的智能对话机器人，你可以与它探讨科学、人生等问题。</p>
+            <h2>使用说明</h2>
+            <ul>
+                <li>输入任意问题，雷bot会为你解答。</li>
+                <li>输入<strong>“咏雷”</strong>，欣赏雷氏文学名篇。</li>
+                <li>更多功能敬请期待后续更新……</li>
+            </ul>
+            <h2>关于</h2>
+            <p>雷bot的语料来自百度<a href="https://tieba.baidu.com/f?kw=%E9%9B%B7%E6%B0%8F%E5%8A%9B%E5%AD%A6"
+                    target="_blank" rel="noopener noreferrer">雷氏力学吧</a>，仅供娱乐，程序生成的对话内容不代表雷绍武老师及开发者的态度。《咏雷》作品的版权归其作者所有。
+            </p>
             <p>开发者：大地重归寂灭</p>
             <a href="https://github.com/yongleiji/leibot" target="_blank" rel="noopener noreferrer">前往项目主页</a>
-    </div>
-    <div class="control">
-        <input type="text" placeholder="请在此输入你的问题" autofocus>
-        <button type="button" onclick="sendMessage()">发送</button>
+        </div>
+        <div class="control">
+            <input type="text" placeholder="请在此输入你的问题" autofocus><button type="button"
+                onclick="sendMessage()">发送</button>
+        </div>
+        <footer></footer>
     </div>
     <div class="s">
         <div class="message right">
-            <img src="me.jpg" alt="我"><p></p>
+            <img src="me.jpg" alt="我">
+            <p></p>
         </div>
         <div class="message">
-            <img src="lei.jpg" alt="雷bot"><p></p>
+            <img src="lei.jpg" alt="雷bot">
+            <p></p>
         </div>
     </div>
     <script src="papaparse.min.js"></script>
@@ -97,7 +160,7 @@
         });
         const dialogue = document.querySelector('div.dialogue');
         const input = document.querySelector('input');
-        input.addEventListener('keypress', function(event) {
+        input.addEventListener('keypress', function (event) {
             if (event.keyCode == 13)
                 sendMessage();
         });
@@ -117,7 +180,7 @@
                 index = getRandomInt(0, leiyu.length);
                 answer.lastElementChild.textContent = leiyu[index];
             }
-            if (intro) {                
+            if (intro) {
                 dialogue.innerHTML = '';
                 intro = false;
             }
@@ -138,4 +201,5 @@
         }
     </script>
 </body>
+
 </html>
